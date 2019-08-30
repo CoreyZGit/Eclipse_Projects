@@ -7,8 +7,9 @@ public class Logic {
 	Random rand = new Random();
 	private String mathQuestion;
 	private int compVar;
+	MathGUI math = new MathGUI();
 	
-	public int[] questionValues(int firstnum, int secondnum, int answer ){
+	public int[] questionValues(int firstnum, int secondnum, int answer){
 		
 		int randMath = 1 + rand.nextInt(4);
 		
@@ -20,8 +21,8 @@ public class Logic {
 		
 		case 1: 
 			
-		firstnum = 1 + rand.nextInt(100);
-		secondnum = 1 + rand.nextInt(100);   
+		firstnum = 1 + rand.nextInt(math.addsum);
+		secondnum = 1 + rand.nextInt(math.addsum);   
 		answer = firstnum + secondnum;	
 				
 		break;	
@@ -32,13 +33,13 @@ public class Logic {
 		
 		case 2:
 			
-		firstnum = 1 + rand.nextInt(100);
-		secondnum = 1 + rand.nextInt(100);   
+		firstnum = 1 + rand.nextInt(math.addsum);
+		secondnum = 1 + rand.nextInt(math.addsum);   
 					
 		while(firstnum < secondnum) {
 		
-		firstnum = 1 + rand.nextInt(100);
-		secondnum = 1 + rand.nextInt(100);
+		firstnum = 1 + rand.nextInt(math.addsum);
+		secondnum = 1 + rand.nextInt(math.addsum);
 						
 		}
 		
@@ -52,8 +53,8 @@ public class Logic {
 		
 		case 3:
 			
-		firstnum = 1 + rand.nextInt(12);
-		secondnum = 1 + rand.nextInt(12);   
+		firstnum = 1 + rand.nextInt(math.divmult);
+		secondnum = 1 + rand.nextInt(math.divmult);   
 		answer = firstnum * secondnum;	
 			
 			
@@ -65,14 +66,14 @@ public class Logic {
 		
 		case 4:	
 			
-		firstnum = 1 + rand.nextInt(144);
-		secondnum = 1 + rand.nextInt(12);   
+		firstnum = 1 + rand.nextInt(math.numerator);
+		secondnum = 1 + rand.nextInt(math.divmult);   
 		answer = firstnum % secondnum;
 		
 		while((answer != 0)||(firstnum < secondnum)){
 			    
-		firstnum = 1 + rand.nextInt(144);
-		secondnum = 1 + rand.nextInt(12);   
+		firstnum = 1 + rand.nextInt(math.numerator);
+		secondnum = 1 + rand.nextInt(math.divmult);   
 		answer = firstnum % secondnum;
 			         
 			    }
