@@ -6,7 +6,13 @@ public class CommonStringMethods {
 		//CommonStringMethods();
 		//SomeMoreStringMethods();
 		//System.out.println(RecursionFactorial(5));
-		IntroToCollections();
+		//IntroToCollections();
+		MoreJavaStuff moreJava = new MoreJavaStuff();	
+		//moreJava.LinkedList();
+		//moreJava.ListToArray();
+		//moreJava.CollectionsMethodsSort();
+		//moreJava.MethodsReverseAndCopy();
+		moreJava.UsingAddAll();
 	}
 	
 	public static void CommonStringMethods() {
@@ -105,7 +111,7 @@ public class CommonStringMethods {
 		
 		}
 				
-	}
+	}	
 		
 }
 
