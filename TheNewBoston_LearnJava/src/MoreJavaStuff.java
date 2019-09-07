@@ -138,7 +138,153 @@ public void UsingAddAll() {
 	
 	for(String x : list2)
 		System.out.printf("%s ", x);
+	System.out.println();
+	
+	System.out.println(Collections.frequency(list2, "gemr"));
+	
+	boolean tof = Collections.disjoint(list1, list2);
+	System.out.println(tof);
+	
+	if(tof)
+		System.out.println("These lists do not have anything in common.");
+	
+	else
+		System.out.println("These lists must have something in common!");
 	
 }
+
+public void StackPushPop() {
+	
+	Stack<String> stack = new Stack<String>();
+	stack.push("bottom");
+	printStack(stack);
+	stack.push("second");
+	printStack(stack);
+	stack.push("third");
+	printStack(stack);
+	
+	stack.pop();
+	printStack(stack);
+	stack.pop();
+	printStack(stack);
+	stack.pop();
+	printStack(stack);
+	
+	
+	
+}
+
+private static void printStack(Stack<String> s) {
+	
+	if(s.isEmpty())
+		System.out.println("You have nothing in your stack");
+	
+	else
+		System.out.printf("%s TOP\n", s);
+	
+}
+
+public void Queue() {
+	
+	PriorityQueue<String> q = new PriorityQueue<String>();
+	
+	q.offer("first");
+	q.offer("second");
+	q.offer("third");
+	
+	System.out.printf("%s ", q);
+	System.out.println();
+	
+	System.out.printf("%s ", q.peek());
+	System.out.println();
+	
+	String f = q.poll();
+	System.out.printf("%s ", q);
+	System.out.println(f);
+
+}
+
+public void HashSet() {
+	
+	String[] things = {"apple", "bob", "ham", "bob", "bacon"};
+	List<String> list = Arrays.asList(things);
+	
+	System.out.printf("%s ", list);
+	System.out.println();
+	
+	Set<String> set = new HashSet<String>(list);
+	System.out.printf("%s ", set);
+	
+}
+
+public void OverloadedMethods() {
+	
+	Integer[] iray = {1, 2, 3, 4};
+	Character[] cray = {'c', 'o', 'r', 'e', 'y'};
+	
+	printMe(iray);
+	printMe(cray);
+	printMeGeneric(iray);
+	printMeGeneric(cray);
+	
+	
+	
+}
+
+private void printMe(Integer[] i) {
+	
+	for(Integer x : i)
+		System.out.printf("%s ", x);
+	System.out.println();
+	
+	
+	
+}
+
+private void printMe(Character[] i) {
+	
+	for(Character x : i)
+		System.out.printf("%s ", x);
+	System.out.println();
+	
+	
+	
+}
+
+private <T> void printMeGeneric(T[] x){
+	
+	for(T b : x)
+		System.out.printf("%s ", b);
+	System.out.println();
+		
+	
+}
+
+public void GenericReturnTypes() {
+	
+	System.out.println(max(23, 42, 1));
+	System.out.println(max("apples", "tots", "chicken"));
+	
+	
+	
+}
+
+private <T extends Comparable<T>> T max(T a, T b, T c) {
+	
+	T m = a;
+	if(b.compareTo(a) > 0)
+		m = b;
+	
+	if(c.compareTo(b) > 0)
+		m = c;
+	
+	return m;
+	
+	
+	
+}
+
+
+
 
 }

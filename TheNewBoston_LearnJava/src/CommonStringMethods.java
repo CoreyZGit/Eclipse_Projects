@@ -12,7 +12,12 @@ public class CommonStringMethods {
 		//moreJava.ListToArray();
 		//moreJava.CollectionsMethodsSort();
 		//moreJava.MethodsReverseAndCopy();
-		moreJava.UsingAddAll();
+		//moreJava.UsingAddAll();
+		//moreJava.StackPushPop();
+		//moreJava.Queue();
+		//moreJava.HashSet();
+		//moreJava.OverloadedMethods();
+		//moreJava.GenericReturnTypes();
 	}
 	
 	public static void CommonStringMethods() {
