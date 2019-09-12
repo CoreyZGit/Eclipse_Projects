@@ -14,7 +14,7 @@ public class AppletsMain extends JApplet{
 		double n1 = Double.parseDouble(fn);
 		double n2 = Double.parseDouble(sn);
 		
-		sum = n1 = n2;
+		sum = n1 + n2;
 		
 		
 	}

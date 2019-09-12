@@ -11,7 +11,7 @@ public class LearnThreads implements Runnable{
 	public LearnThreads(String x) {
 		
 		name = x;
-		r.nextInt(999);
+		time = r.nextInt(10000);
 		
 		
 	}
