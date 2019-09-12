@@ -62,11 +62,11 @@ def attack_type(weapon):
              
 attack_type(choice)
 
-print(attack)
-print(defense)
-print(ammo)
-print(health)
-print(grenades)
+print("Attack: " + str(attack))
+print("Defense: " + str(defense))
+print("Ammo: " + str(ammo))
+print("Health: " + str(health))
+print("Grenades: " + str(grenades))
 
 print("\n")
 
@@ -600,6 +600,7 @@ def search():
         search()
 
 search()
+
 
 
 
