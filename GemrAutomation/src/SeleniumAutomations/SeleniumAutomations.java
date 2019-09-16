@@ -3,6 +3,7 @@ package SeleniumAutomations;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,6 +22,7 @@ public class SeleniumAutomations {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\ZUser\\Desktop\\Java\\chromedriver_win32\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();	
 		WebDriverWait wait8 = new WebDriverWait(driver, 8);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		
 		final long startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
 		System.out.println("Starting Automation.\n");
@@ -35,27 +37,32 @@ public class SeleniumAutomations {
 		seconds = timePassed - startTime;
 		System.out.println("Create collection completed in " + seconds + " seconds.\n");
 		
-		AddItemToCollection(driver, wait8);	
+		AddItemToCollection(driver, wait8, js);	
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		seconds = timePassed - startTime;
 		System.out.println("Adding item to collection completed in " + seconds + " seconds.\n");
 		
-		NavigateToClub(driver, wait8);
+		NavigateToClubDeleteCollection(driver, wait8);
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		seconds = timePassed - startTime;
-		System.out.println("Navigating to club completed in " + seconds + " seconds.\n");
+		System.out.println("Navigating to club and deleting collection completed in " + seconds + " seconds.\n");
+		
+		LogOutQuit(driver);
+		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		seconds = timePassed - startTime;
+		System.out.println("Log out completed in " + seconds + " seconds.\n");
 		
 	}
 	
 	public static void LogIn(WebDriver driver) {
 					
 		driver.get("https://stage.qa.gemr.com");
-		driver.manage().window().maximize();
-		
+		driver.manage().window().maximize();		
 		driver.findElement(By.cssSelector("#landingNavBarContainer > div > div > ul > div > li.pointed.inline.landingLogIn")).click();		
 		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div[2]/form/div/div[4]/div[1]/div[2]/input")).sendKeys("coreyzdude");
 		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div[2]/form/div/div[4]/div[2]/div[2]/input")).sendKeys("Wormtown#722");
 		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div[2]/form/div/div[4]/div[3]/button")).click();	
+		
 	}
 	
 	public static void CreateCollection(WebDriver driver, WebDriverWait wait8) {
@@ -68,15 +75,14 @@ public class SeleniumAutomations {
 		driver.findElement(By.className("clubTileBottom")).click();		
 		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/form/div/div[5]/button")).click();
 		
-		
 	}
 	
-	public static void AddItemToCollection(WebDriver driver, WebDriverWait wait8){
+	public static void AddItemToCollection(WebDriver driver, WebDriverWait wait8, JavascriptExecutor js){
 		
 		wait8.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"grid-container\"]/div[1]/div[1]/div[2]/div[2]/a[2]")));	
 		
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(4000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}	
@@ -89,8 +95,16 @@ public class SeleniumAutomations {
 		
 		driver.findElement(By.cssSelector("#x2ProfileBody > div > div:nth-child(2) > div.flexStart.gridColumnContainer > div:nth-child(1) > div:nth-child(1) > div > div > div.margB15.posRel > h2")).click();		
 		
-		wait8.until(ExpectedConditions.visibilityOfElementLocated(By.className("ownerActionCog")));
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			
+		js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
 		
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}	
+
 		driver.findElement(By.className("ownerActionCog")).click();
 		driver.findElement(By.xpath("//*[@id=\"base-detail-container\"]/div[2]/div[4]/ul/li[1]")).click();
 		
@@ -103,32 +117,56 @@ public class SeleniumAutomations {
 		wait8.until(ExpectedConditions.elementToBeClickable(By.className("close-item")));
 		
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(4000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		
 		driver.findElement(By.className("close-item")).click();
-		
 			
 	}
 	
-	public static void NavigateToClub(WebDriver driver, WebDriverWait wait8) {
+	public static void NavigateToClubDeleteCollection(WebDriver driver, WebDriverWait wait8) {
 		
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		try {
+			Thread.sleep(15000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 		driver.findElement(By.xpath("//*[@id=\"navbar-clubs\"]/a/li")).click();
 		driver.findElement(By.xpath("//*[@id=\"navbar-clubs\"]/div/div[2]/div[1]/div[2]/a[1]/div[2]")).click();
 		
 		wait8.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"club-tabs\"]/ul/li[2]/a")));
 		
-		driver.findElement(By.xpath("//*[@id=\\\"club-tabs\\\"]/ul/li[2]/a")).click();
-		driver.findElement(By.className("nuxt-link-active")).click();
+		driver.findElement(By.xpath("//*[@id=\"club-tabs\"]/ul/li[2]/a")).click();
+		driver.findElement(By.xpath("//*[@id=\"profileRightNew\"]/div/div[2]/ul/li[1]/a")).click();
 		
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);	
 		
-		driver.findElement(By.xpath("//*[@id=\"profileRightNew\"]/div/div[4]/div[1]/div[1]/div[1]/div/div[2]/div[1]/h2")).click();
+		driver.findElement(By.xpath("//*[@id=\"profileRightNew\"]/div/div[4]/div[1]/div[1]/div[1]/div/div/div[1]/h2")).click();
 		
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);	
 		
+		driver.findElement(By.className("ownerActionCog")).click();
+		driver.findElement(By.xpath("//*[@id=\"base-detail-container\"]/div[2]/div/ul/li[4]")).click();
+		
+		Select deleteCollection = new Select(driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div[2]/div/div[2]/div/form/div/div[2]/div/select")));
+		deleteCollection.selectByVisibleText("default");
+		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div[2]/div/div[2]/div/form/div/div[5]/button[2]")).click();
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		driver.findElement(By.cssSelector("#modals-container > div:nth-child(3) > div > div.v--modal-box.v--modal.v--dialog > div > div.x2ModalTitleBox > svg")).click();
+	}
+	
+	public static void LogOutQuit(WebDriver driver){
+		
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);	
+		
+		driver.findElement(By.xpath("//*[@id=\"x2NavUserText\"]/span")).click();
+		driver.findElement(By.xpath("//*[@id=\"x2NavUserText\"]/ul/li[5]/a")).click();
+		
+		driver.quit();
+				
 	}
 	
 }
