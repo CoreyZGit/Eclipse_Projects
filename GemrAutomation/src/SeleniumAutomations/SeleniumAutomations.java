@@ -8,6 +8,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
@@ -15,44 +16,56 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SeleniumAutomations {
-		
-
+			
 	public static void main(String[] args) {
+		
+		long currentTime;
+		long timePassed;
+		float seconds;
 		
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\ZUser\\Desktop\\Java\\chromedriver_win32\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();	
 		WebDriverWait wait8 = new WebDriverWait(driver, 8);
-		JavascriptExecutor js = (JavascriptExecutor) driver;
+		JavascriptExecutor js = (JavascriptExecutor) driver;		
 		
-		final long startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
 		System.out.println("Starting Automation.\n");
 		
+		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());						
 		LogIn(driver);
-		long timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		float seconds = timePassed - startTime;
+		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		seconds = timePassed - currentTime;
 		System.out.println("Log in completed in " + seconds + " seconds.\n");
 		
-		CreateCollection(driver, wait8);
+		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		CreateCollection(driver, wait8, js);
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = timePassed - startTime;
+		seconds = timePassed - currentTime;
 		System.out.println("Create collection completed in " + seconds + " seconds.\n");
 		
+		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		AddItemToCollection(driver, wait8, js);	
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = timePassed - startTime;
+		seconds = timePassed - currentTime;
 		System.out.println("Adding item to collection completed in " + seconds + " seconds.\n");
 		
+		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		NavigateToClubDeleteCollection(driver, wait8);
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = timePassed - startTime;
+		seconds = timePassed - currentTime;
 		System.out.println("Navigating to club and deleting collection completed in " + seconds + " seconds.\n");
 		
+		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		LogOutQuit(driver);
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = timePassed - startTime;
+		seconds = timePassed - currentTime;
 		System.out.println("Log out completed in " + seconds + " seconds.\n");
 		
+		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		System.out.println("Full automation completed total of " + currentTime + " seconds.");
+		
+		
 	}
+	
 	
 	public static void LogIn(WebDriver driver) {
 					
@@ -65,14 +78,19 @@ public class SeleniumAutomations {
 		
 	}
 	
-	public static void CreateCollection(WebDriver driver, WebDriverWait wait8) {
+	public static void CreateCollection(WebDriver driver, WebDriverWait wait8, JavascriptExecutor js) {
 		
 		wait8.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"user-status\"]/form/div[1]/div[3]/span")));
 		
-		driver.findElement(By.xpath("//*[@id=\"user-status\"]/form/div[1]/div[3]/span")).click();
+		driver.findElement(By.xpath("//*[@id=\"user-status\"]/form/div[1]/div[3]/span")).click();		
 		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/form/div/div[1]/input")).sendKeys("AutomatedTestCollection");
 		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/form/div/div[2]/textarea")).sendKeys("AutomatedDescription!!!!!");
-		driver.findElement(By.className("clubTileBottom")).click();		
+		
+		wait8.until(ExpectedConditions.visibilityOfElementLocated(By.className("x2ClubCheck-text")));
+		
+		WebElement clubCell = driver.findElement(By.className("x2ClubCheck-text"));
+		js.executeScript("arguments[0].click()", clubCell);
+				
 		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/form/div/div[5]/button")).click();
 		
 	}
