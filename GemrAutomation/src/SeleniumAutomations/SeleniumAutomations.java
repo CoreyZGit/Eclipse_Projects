@@ -15,19 +15,17 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class SeleniumAutomations {
-			
-	public static void main(String[] args) {
+public class SeleniumAutomations {			
 		
+		public void StartAutomation() {
+				
 		long currentTime;
 		long timePassed;
 		long startTime;
 		float seconds;
-		int secondsInt;
-		int minutes;
-		int iterations = 0;
-		
-		while(iterations <= 5) {
+		float minutes;
+		String secondsS;
+		String minutesS;
 		
 		startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\ZUser\\Desktop\\Java\\chromedriver_win32\\chromedriver.exe");
@@ -74,20 +72,24 @@ public class SeleniumAutomations {
 		if(seconds > 60) {
 			
 			minutes = Math.round(seconds / 60);
-			secondsInt = Math.round(seconds % 60);
+			seconds = Math.round(seconds % 60);
 			
-			System.out.printf("Full automation completeed in %d:%d.", minutes, secondsInt);
+			minutesS = String.valueOf(minutes);
+			secondsS = String.valueOf(seconds);
+			
+			minutesS.replace(".000000", "");
+			secondsS.replace(".000000", "");
+			
+			System.out.printf("Iteration completed in %s:%s.\n", minutesS, secondsS);
 			
 		}else {
 		
-			System.out.println("Full automation completed in " + seconds + " seconds.");
+			System.out.println("Iteration completed in " + seconds + " seconds.\n");
 		
 		}	
 		
-	}
+}
 		
-		
-	}
 	
 	public static void LogIn(WebDriver driver) {
 					
@@ -100,15 +102,15 @@ public class SeleniumAutomations {
 		
 	}
 	
-	public static void CreateCollection(WebDriver driver, WebDriverWait wait6, JavascriptExecutor js) {
+	public static void CreateCollection(WebDriver driver, WebDriverWait wait10, JavascriptExecutor js) {
 		
-		wait6.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"user-status\"]/form/div[1]/div[3]/span")));
+		wait10.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"user-status\"]/form/div[1]/div[3]/span")));
 		
 		driver.findElement(By.xpath("//*[@id=\"user-status\"]/form/div[1]/div[3]/span")).click();		
 		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/form/div/div[1]/input")).sendKeys("AutomatedTestCollection");
 		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/form/div/div[2]/textarea")).sendKeys("AutomatedDescription!!!!!");
 		
-		wait6.until(ExpectedConditions.visibilityOfElementLocated(By.className("x2ClubCheck-text")));
+		wait10.until(ExpectedConditions.visibilityOfElementLocated(By.className("x2ClubCheck-text")));
 		
 		WebElement clubCell = driver.findElement(By.className("x2ClubCheck-text"));
 		js.executeScript("arguments[0].click()", clubCell);
@@ -117,15 +119,15 @@ public class SeleniumAutomations {
 		
 	}
 	
-	public static void AddItemToCollection(WebDriver driver, WebDriverWait wait6, JavascriptExecutor js){
+	public static void AddItemToCollection(WebDriver driver, WebDriverWait wait10, JavascriptExecutor js){
 		
-		wait6.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"grid-container\"]/div[1]/div[1]/div[2]/div[2]/a[2]")));	
+		wait10.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"grid-container\"]/div[1]/div[1]/div[2]/div[2]/a[2]")));	
 		
 		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 3000);");
 		
 		driver.findElement(By.xpath("//*[@id=\"grid-container\"]/div[1]/div[1]/div[2]/div[2]/a[2]")).click();		
 		
-		wait6.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#x2ProfileBody > div > div:nth-child(2) > div.flexStart.gridColumnContainer > div:nth-child(1) > div:nth-child(1) > div > div > div.margB15.posRel > h2")));		
+		wait10.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#x2ProfileBody > div > div:nth-child(2) > div.flexStart.gridColumnContainer > div:nth-child(1) > div:nth-child(1) > div > div > div.margB15.posRel > h2")));		
 		
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);		
 		
@@ -140,13 +142,13 @@ public class SeleniumAutomations {
 		driver.findElement(By.className("ownerActionCog")).click();
 		driver.findElement(By.xpath("//*[@id=\"base-detail-container\"]/div[2]/div[4]/ul/li[1]")).click();
 		
-		wait6.until(ExpectedConditions.visibilityOfElementLocated(By.className("wizDropdown")));
+		wait10.until(ExpectedConditions.visibilityOfElementLocated(By.className("wizDropdown")));
 		
 		Select addToCollection = new Select(driver.findElement(By.className("wizDropdown")));
 		addToCollection.selectByVisibleText("AutomatedTestCollection");
 		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div[2]/div/div[2]/div/div[2]/div/div[2]/button[3]")).click();
 		
-		wait6.until(ExpectedConditions.elementToBeClickable(By.className("close-item")));
+		wait10.until(ExpectedConditions.elementToBeClickable(By.className("close-item")));
 		
 		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 3000);");
 		
@@ -155,14 +157,14 @@ public class SeleniumAutomations {
 	}
 	
 
-	public static void NavigateToClubDeleteCollection(WebDriver driver, WebDriverWait wait6, JavascriptExecutor js) {
+	public static void NavigateToClubDeleteCollection(WebDriver driver, WebDriverWait wait10, JavascriptExecutor js) {
 		
 		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 3000);");
 		
 		driver.findElement(By.xpath("//*[@id=\"navbar-clubs\"]/a/li")).click();
 		driver.findElement(By.xpath("//*[@id=\"navbar-clubs\"]/div/div[2]/div[1]/div[2]/a[1]/div[2]")).click();
 		
-		wait6.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"club-tabs\"]/ul/li[2]/a")));
+		wait10.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"club-tabs\"]/ul/li[2]/a")));
 		
 		driver.findElement(By.xpath("//*[@id=\"club-tabs\"]/ul/li[2]/a")).click();
 		driver.findElement(By.xpath("//*[@id=\"profileRightNew\"]/div/div[2]/ul/li[1]/a")).click();
@@ -179,6 +181,8 @@ public class SeleniumAutomations {
 		
 		driver.findElement(By.className("ownerActionCog")).click();
 		driver.findElement(By.xpath("//*[@id=\"base-detail-container\"]/div[2]/div/ul/li[4]")).click();
+		
+		wait10.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"modals-container\"]/div[2]/div/div[2]/div/form/div/div[2]/div/select")));
 		
 		Select deleteCollection = new Select(driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div[2]/div/div[2]/div/form/div/div[2]/div/select")));
 		deleteCollection.selectByVisibleText("default");
@@ -200,7 +204,6 @@ public class SeleniumAutomations {
 		driver.findElement(By.xpath("//*[@id=\"x2NavUserText\"]/ul/li[5]/a")).click();
 		
 		driver.close();
-				
 	}
 	
 
