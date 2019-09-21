@@ -1,16 +1,21 @@
-package SeleniumAutomations;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class AutomationMain {
 	
 	static int iterations;
 	static String start;
 	static String stringCompare;
+	static long timeStamp;
+	static int timeInt;
+	static int minutes;
+	static int seconds;
 	
 	public static void main(String[] args) {
 		
-		SeleniumAutomations testSuite = new SeleniumAutomations();
+		ShareCollectionToClubDelete sctcd = new ShareCollectionToClubDelete();
 		Scanner input = new Scanner(System.in);
 		Scanner begin = new Scanner(System.in);
 		
@@ -29,12 +34,26 @@ public class AutomationMain {
 		
 		while(iterations != 0) {
 			
-			testSuite.StartAutomation();
+			sctcd.StartAutomation();
 			iterations--;
 				
 		}
 		
-		System.out.println("Automation Complete");
+		timeStamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		timeInt = (int)Math.round(timeStamp);
+		
+		if(timeInt > 60) {
+			
+			minutes = timeInt / 60;
+			seconds = timeInt % 60;	
+			
+			System.out.printf("All iterations completed in %d:%d.\n", minutes, seconds);	
+			
+		}else {
+			
+			System.out.println("All iterations completed in " + " seconds.\n");
+			
+		}
 		
 	}
 	

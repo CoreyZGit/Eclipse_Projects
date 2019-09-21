@@ -1,33 +1,25 @@
-package SeleniumAutomations;
+
 
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class SeleniumAutomations {			
+public class ShareCollectionToClubDelete {			
 		
 		public void StartAutomation() {
 				
 		long currentTime;
 		long timePassed;
-		long startTime;
-		float seconds;
-		float minutes;
-		String secondsS;
-		String minutesS;
+		int seconds;
+		int minutes;
 		
-		startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\ZUser\\Desktop\\Java\\chromedriver_win32\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();	
 		WebDriverWait wait10 = new WebDriverWait(driver, 10);
@@ -39,48 +31,42 @@ public class SeleniumAutomations {
 		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());						
 		LogIn(driver);
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = timePassed - currentTime;
+		seconds = (int)Math.round(timePassed - currentTime);		
 		System.out.println("Log in completed in " + seconds + " seconds.\n");
 		
 		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		CreateCollection(driver, wait10, js);
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = timePassed - currentTime;
+		seconds = (int)Math.round(timePassed - currentTime);
 		System.out.println("Create collection completed in " + seconds + " seconds.\n");
 		
 		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		AddItemToCollection(driver, wait10, js);	
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = timePassed - currentTime;
+		seconds = (int)Math.round(timePassed - currentTime);
 		System.out.println("Adding item to collection completed in " + seconds + " seconds.\n");
 		
 		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		NavigateToClubDeleteCollection(driver, wait10, js);
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = timePassed - currentTime;
+		seconds = (int)Math.round(timePassed - currentTime);
 		System.out.println("Navigating to club and deleting collection completed in " + seconds + " seconds.\n");
 		
 		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		LogOutQuit(driver);
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = timePassed - currentTime;
+		seconds = (int)Math.round(timePassed - currentTime);
 		System.out.println("Log out completed in " + seconds + " seconds.\n");
 		
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
-		seconds = timePassed - startTime;
+		seconds = (int)Math.round(timePassed - currentTime);
 		
 		if(seconds > 60) {
 			
-			minutes = Math.round(seconds / 60);
-			seconds = Math.round(seconds % 60);
+			minutes = seconds / 60;
+			seconds = seconds % 60;
 			
-			minutesS = String.valueOf(minutes);
-			secondsS = String.valueOf(seconds);
-			
-			minutesS.replace(".000000", "");
-			secondsS.replace(".000000", "");
-			
-			System.out.printf("Iteration completed in %s:%s.\n", minutesS, secondsS);
+			System.out.printf("Iteration completed in %d:%d.\n", minutes, seconds);
 			
 		}else {
 		
@@ -150,7 +136,7 @@ public class SeleniumAutomations {
 		
 		wait10.until(ExpectedConditions.elementToBeClickable(By.className("close-item")));
 		
-		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 3000);");
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 4000);");
 		
 		driver.findElement(By.className("close-item")).click();
 			
