@@ -1,3 +1,4 @@
+package AutomationPackage;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -8,7 +9,8 @@ public class AutomationMain {
 	static int iterations;
 	static String start;
 	static String stringCompare;
-	static long timeStamp;
+	static long endTime;
+	static long startTime;
 	static int timeInt;
 	static int minutes;
 	static int seconds;
@@ -22,7 +24,7 @@ public class AutomationMain {
 		System.out.println("Gemr Automation Intitiating...\n");
 		
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(1500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -32,26 +34,29 @@ public class AutomationMain {
 
 		SetIterations(input, begin);
 		
+		startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		
 		while(iterations != 0) {
 			
+			System.out.println("Starting Automation.\n");
 			sctcd.StartAutomation();
 			iterations--;
 				
 		}
 		
-		timeStamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		timeInt = (int)Math.round(timeStamp);
+		endTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());		
+		timeInt = (int)Math.round(endTime - startTime);
 		
 		if(timeInt > 60) {
 			
 			minutes = timeInt / 60;
-			seconds = timeInt % 60;	
+            seconds = timeInt % 60;	
 			
-			System.out.printf("All iterations completed in %d:%d.\n", minutes, seconds);	
+			System.out.printf("Full automation completed in %d:%d.\n", minutes, seconds);	
 			
 		}else {
 			
-			System.out.println("All iterations completed in " + " seconds.\n");
+			System.out.println("Full automation completed in " + seconds + " seconds.\n");
 			
 		}
 		

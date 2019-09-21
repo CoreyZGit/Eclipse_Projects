@@ -1,7 +1,6 @@
-
+package AutomationPackage;
 
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -17,6 +16,7 @@ public class ShareCollectionToClubDelete {
 				
 		long currentTime;
 		long timePassed;
+		long startTime;
 		int seconds;
 		int minutes;
 		
@@ -26,7 +26,8 @@ public class ShareCollectionToClubDelete {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		driver.manage().timeouts().setScriptTimeout(20, TimeUnit.SECONDS);
 		
-		System.out.println("Starting Automation.\n");
+		System.out.println("Starting Iteration.\n");
+		startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
 		
 		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());						
 		LogIn(driver);
@@ -59,7 +60,7 @@ public class ShareCollectionToClubDelete {
 		System.out.println("Log out completed in " + seconds + " seconds.\n");
 		
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
-		seconds = (int)Math.round(timePassed - currentTime);
+		seconds = (int)Math.round(timePassed - startTime);
 		
 		if(seconds > 60) {
 			
@@ -142,7 +143,6 @@ public class ShareCollectionToClubDelete {
 			
 	}
 	
-
 	public static void NavigateToClubDeleteCollection(WebDriver driver, WebDriverWait wait10, JavascriptExecutor js) {
 		
 		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 3000);");
@@ -166,6 +166,9 @@ public class ShareCollectionToClubDelete {
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);	
 		
 		driver.findElement(By.className("ownerActionCog")).click();
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 3000);");
+		
 		driver.findElement(By.xpath("//*[@id=\"base-detail-container\"]/div[2]/div/ul/li[4]")).click();
 		
 		wait10.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"modals-container\"]/div[2]/div/div[2]/div/form/div/div[2]/div/select")));
@@ -180,8 +183,7 @@ public class ShareCollectionToClubDelete {
 		
 		
 	}
-			
-	
+				
 	public static void LogOutQuit(WebDriver driver){
 		
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);	
@@ -192,7 +194,6 @@ public class ShareCollectionToClubDelete {
 		driver.close();
 	}
 	
-
 	public static void elementExists(WebDriver driver, String elementText, String element, JavascriptExecutor js){
 		
 		Boolean tof = driver.findElements(By.xpath(elementText)).size() > 0;
@@ -217,4 +218,3 @@ public class ShareCollectionToClubDelete {
 	}
 		
 }
-
