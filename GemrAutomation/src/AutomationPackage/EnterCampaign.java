@@ -12,14 +12,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class EnterCampaign {
 	
-	public void StartAutomation() {
+	public void startAutomation(String campaignLink) {
 		
 		long currentTime;
 		long timePassed;
 		long startTime;
 		int seconds;
 		int minutes;
-		Boolean link;
 		
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\ZUser\\Desktop\\Java\\chromedriver_win32\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
@@ -29,8 +28,24 @@ public class EnterCampaign {
 		AutomationMethods methods = new AutomationMethods();
 		
 		System.out.println("Starting Iteration.\n");
-		startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
+		startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		
+		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());						
+		methods.LogIn(driver);
+		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		seconds = (int)Math.round(timePassed - currentTime);		
+		System.out.println("Log in completed in " + seconds + " seconds.\n");
+		
+		driver.navigate().to(campaignLink);
+		
+		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());						
+		methods.campaignAlreadyAuth(driver, wait10);
+		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		seconds = (int)Math.round(timePassed - currentTime);		
+		System.out.println("Log in completed in " + seconds + " seconds.\n");
 	}
 	
 	

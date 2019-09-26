@@ -3,11 +3,14 @@ package AutomationPackage;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JOptionPane;
+
 public class AutomationMain {
 	
 	static String stringInput;
 	static String automationTime;
 	static String chosenAutomation;
+	static String campaignLink;
 	static long endTime;
 	static long startTime;
 	static int iterations;
@@ -37,10 +40,12 @@ public class AutomationMain {
 		
 		ShareCollectionToClubDelete sctcd = new ShareCollectionToClubDelete();
 		EnterCampaign ec = new EnterCampaign();
+		SignUpNewUser sunu = new SignUpNewUser();
 		
 		System.out.println("Choose the corresponding number for the automation you would like to run.  Then press ENTER.\n" 
 						 + "1 : SHARE COLLECTION TO CLUB\n"
-						 + "2 : ENTER CAMPAIGN\n");
+						 + "2 : ENTER CAMPAIGN\n"
+						 + "3 : NEW USER SIGN UP\n");
 		
 			stringInput = input.nextLine();
 			
@@ -58,7 +63,7 @@ public class AutomationMain {
 				while(iterations != 0) {
 					
 					System.out.println("Starting Automation.\n");
-					sctcd.StartAutomation();
+					sctcd.startAutomation();
 					iterations--;
 					
 				}
@@ -70,14 +75,33 @@ public class AutomationMain {
 			}else if(stringInput.equals("2")) {
 				
 				chosenAutomation = "ENTER CAMPAIGN";
+				campaignLink = JOptionPane.showInputDialog("Please input a valid campaign link (Branch link preferred)");
 				SetIterations();
 				
-				startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+				startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());					
 				
 				while(iterations != 0) {
 					
 					System.out.println("Starting Automation.\n");
-					ec.StartAutomation();
+					ec.startAutomation(campaignLink);
+					iterations--;
+					
+				}		
+				
+				showTime();
+				breakLoop = false;
+				
+			}else if(stringInput.equals("3")) {
+				
+				chosenAutomation = "NEW USER SIGN UP";
+				SetIterations();
+				
+				startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());					
+				
+				while(iterations != 0) {
+					
+					System.out.println("Starting Automation.\n");
+					sunu.startAutomation();
 					iterations--;
 					
 				}		

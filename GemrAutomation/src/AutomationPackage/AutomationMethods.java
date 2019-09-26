@@ -152,15 +152,38 @@ public class AutomationMethods {
 		
 		
 	}
-	
-	public String configureURL() {
 		
-
-		String campaignLink = JOptionPane.showInputDialog("Please input a valid campaign link (Branch link preferred)");
+	public void campaignAlreadyAuth(WebDriver driver, WebDriverWait wait10) {
 		
-		return campaignLink;
+		wait10.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/button[2]")));
+		
+		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/button[2]")).click();				
+		driver.findElement(By.xpath("//*[@id=\"club2Top\"]/div[3]/button")).click();
 		
 	}
 	
-	
+	public void signUpOnboard(WebDriver driver, WebDriverWait wait10) {
+		
+		driver.findElement(By.xpath("//*[@id=\"landingNavBarContainer\"]/div/div/ul/div/li[2]")).click();
+		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div/div[2]/form/div/div[4]/div[1]/div[2]/input")).sendKeys("automatedaccount123");
+		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div/div[2]/form/div/div[4]/div[2]/div[2]/input")).sendKeys("corey+automated@gemr.com");
+		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div/div[2]/form/div/div[4]/div[3]/div[2]/input")).sendKeys("123456");
+		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div/div[2]/form/div/div[4]/div[4]/div[2]/input")).sendKeys("123456");
+		
+		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div/div[2]/form/div/div[4]/div[5]/a")).click();
+		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div[2]/div[2]/div[1]/input")).click();
+		
+		wait10.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div[2]/div[2]/div[2]/button[2]")));
+		
+		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div[2]/div[2]/div[2]/button[2]")).click();
+		
+		wait10.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div/div[2]/form/div/div[4]/div[6]/button")));
+		
+		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div/div[2]/form/div/div[4]/div[6]/button")).click();
+		
+		
+		
+	}
+
+
 }

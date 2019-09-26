@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ShareCollectionToClubDelete {			
 		
-		public void StartAutomation() {
+		public void startAutomation() {
 				
 		long currentTime;
 		long timePassed;
