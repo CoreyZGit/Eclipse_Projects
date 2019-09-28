@@ -10,7 +10,6 @@ public class ShareCollectionToClubDelete {
 		
 		public void startAutomation() {
 				
-		long currentTime;
 		long timePassed;
 		long startTime;
 		int seconds;
@@ -25,36 +24,16 @@ public class ShareCollectionToClubDelete {
 		
 		System.out.println("Starting Iteration.\n");
 		startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
-		
-		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());						
+							
 		methods.LogIn(driver);
-		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = (int)Math.round(timePassed - currentTime);		
-		System.out.println("Log in completed in " + seconds + " seconds.\n");
-		
-		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+
 		methods.CreateCollection(driver, wait10, js);
-		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = (int)Math.round(timePassed - currentTime);
-		System.out.println("Create collection completed in " + seconds + " seconds.\n");
-		
-		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+
 		methods.AddItemToCollection(driver, wait10, js);	
-		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = (int)Math.round(timePassed - currentTime);
-		System.out.println("Adding item to collection completed in " + seconds + " seconds.\n");
 		
-		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		methods.NavigateToClubDeleteCollection(driver, wait10, js);
-		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = (int)Math.round(timePassed - currentTime);
-		System.out.println("Navigating to club and deleting collection completed in " + seconds + " seconds.\n");
-		
-		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+
 		methods.LogOutQuit(driver);
-		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = (int)Math.round(timePassed - currentTime);
-		System.out.println("Log out completed in " + seconds + " seconds.\n");
 		
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
 		seconds = (int)Math.round(timePassed - startTime);

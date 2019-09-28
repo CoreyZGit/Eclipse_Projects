@@ -10,7 +10,6 @@ public class AutomationMain {
 	static String stringInput;
 	static String automationTime;
 	static String chosenAutomation;
-	static String campaignLink;
 	static long endTime;
 	static long startTime;
 	static int iterations;
@@ -74,6 +73,7 @@ public class AutomationMain {
 				
 			}else if(stringInput.equals("2")) {
 				
+				final String campaignLink;
 				chosenAutomation = "ENTER CAMPAIGN";
 				campaignLink = JOptionPane.showInputDialog("Please input a valid campaign link (Branch link preferred)");
 				SetIterations();
@@ -93,7 +93,74 @@ public class AutomationMain {
 				
 			}else if(stringInput.equals("3")) {
 				
+				final String stringInterests;
+				final String stringClubs;
+				final String stringBCK;
+				int numberInterests;
+				int numberClubs;
+				int numberBCK;
+				
 				chosenAutomation = "NEW USER SIGN UP";
+				
+				stringInterests = JOptionPane.showInputDialog("Enter Number of interests to select. (Between 3 and 23)\n");
+				
+				try {
+					
+					numberInterests = Integer.parseInt(stringInterests);
+					if(numberInterests > 23 || numberInterests < 3) {
+						
+						System.out.println("Error! Invalid input, will execute automation with selection of 3 interests.\n");
+						numberInterests = 3;
+						
+					}			
+				
+				}catch(NumberFormatException e){
+					
+					System.out.println("Error! Invalid input, will execute automation with selection of 3 interests.\n");
+					numberInterests = 3;
+					
+				}
+								
+				stringClubs = JOptionPane.showInputDialog("Enter number of clubs to join.\n (Between 3 and 150");
+				
+				try {
+					
+					numberClubs = Integer.parseInt(stringClubs);
+					if(numberClubs > 150 || numberClubs < 3) {
+						
+						System.out.println("Error! Invalid input, will execute automation with selection of 3 clubs.\n");
+						numberClubs = 3;
+						
+					}	
+					
+					
+				}catch(NumberFormatException e){
+					
+					System.out.println("Error! Invalid input, will execute automation with selection of 3 clubs.\n");
+					numberClubs = 3;
+					
+				}
+				
+				stringBCK = JOptionPane.showInputDialog("Enter number of BCK's to select. (Between 0 and 6)\n");
+				
+				try {
+					
+					numberBCK = Integer.parseInt(stringBCK);
+					if(numberBCK > 6 || numberBCK < 0) {
+						
+						System.out.println("Error! Invalid input, executing automation with selection of 0 BCK's.\n");
+						numberBCK = 0;
+						
+					}	
+				
+				}catch(NumberFormatException e){
+					
+					System.out.println("Error! Invalid input, executing automation with selection of 0 BCK's.\n");
+					numberBCK = 0;
+					
+				}
+				
+				
 				SetIterations();
 				
 				startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());					
@@ -101,7 +168,7 @@ public class AutomationMain {
 				while(iterations != 0) {
 					
 					System.out.println("Starting Automation.\n");
-					sunu.startAutomation();
+					sunu.startAutomation(numberInterests, numberClubs, numberBCK);
 					iterations--;
 					
 				}		

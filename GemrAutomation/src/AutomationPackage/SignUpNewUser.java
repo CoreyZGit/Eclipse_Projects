@@ -1,19 +1,16 @@
 package AutomationPackage;
 
 import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SignUpNewUser {
 	
-	public void startAutomation() {
+	public void startAutomation(int numberInterests, int numberClubs, int numberBCK) {
 	
-	long currentTime;
 	long timePassed;
 	long startTime;
 	int seconds;
@@ -23,6 +20,7 @@ public class SignUpNewUser {
 	WebDriver driver = new ChromeDriver();	
 	WebDriverWait wait10 = new WebDriverWait(driver, 10);
 	JavascriptExecutor js = (JavascriptExecutor) driver;
+	Actions actions = new Actions(driver);
 	driver.manage().timeouts().setScriptTimeout(20, TimeUnit.SECONDS);
 	AutomationMethods methods = new AutomationMethods();
 	
@@ -32,7 +30,23 @@ public class SignUpNewUser {
 	driver.get("https://stage.qa.gemr.com");
 	driver.manage().window().maximize();
 	
-	methods.signUpOnboard(driver, wait10);
+	methods.signUpOnboard(driver, wait10, js, actions, numberInterests, numberClubs, numberBCK);
+	
+	timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
+	seconds = (int)Math.round(timePassed - startTime);
+	
+	if(seconds > 60) {
+		
+		minutes = seconds / 60;
+		seconds = seconds % 60;
+		
+		System.out.printf("Iteration completed in %d:%d.\n", minutes, seconds);
+		
+	}else {
+	
+		System.out.println("Iteration completed in " + seconds + " seconds.\n");
+	
+	}	
 	
 	}
 }

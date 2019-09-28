@@ -1,20 +1,15 @@
 package AutomationPackage;
 
 import java.util.concurrent.TimeUnit;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class EnterCampaign {
 	
 	public void startAutomation(String campaignLink) {
 		
-		long currentTime;
 		long timePassed;
 		long startTime;
 		int seconds;
@@ -32,20 +27,29 @@ public class EnterCampaign {
 		
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();	
-		
-		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());						
+						
 		methods.LogIn(driver);
-		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = (int)Math.round(timePassed - currentTime);		
-		System.out.println("Log in completed in " + seconds + " seconds.\n");
 		
 		driver.navigate().to(campaignLink);
-		
-		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());						
+							
 		methods.campaignAlreadyAuth(driver, wait10);
-		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = (int)Math.round(timePassed - currentTime);		
-		System.out.println("Log in completed in " + seconds + " seconds.\n");
+		
+		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
+		seconds = (int)Math.round(timePassed - startTime);
+		
+		if(seconds > 60) {
+			
+			minutes = seconds / 60;
+			seconds = seconds % 60;
+			
+			System.out.printf("Iteration completed in %d:%d.\n", minutes, seconds);
+			
+		}else {
+		
+			System.out.println("Iteration completed in " + seconds + " seconds.\n");
+		
+		}	
+
 	}
 	
 	
