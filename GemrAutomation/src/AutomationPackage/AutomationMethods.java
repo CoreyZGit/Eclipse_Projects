@@ -194,7 +194,9 @@ public class AutomationMethods {
 		wait10.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/button[2]")));
 		
 		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/button[2]")).click();				
-		driver.findElement(By.xpath("//*[@id=\"club2Top\"]/div[3]/button")).click();
+
+		String joinClub = "//*[text() = 'foobar']";
+		
 		
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		seconds = (int)Math.round(timePassed - currentTime);
@@ -202,7 +204,7 @@ public class AutomationMethods {
 		
 	}
 	
-	public void signUpOnboard(WebDriver driver, WebDriverWait wait10, JavascriptExecutor js, Actions actions, int numberInterests, int numberClubs, int numberBCK) {
+	public void signUpOnboard(WebDriver driver, WebDriverWait wait10, WebDriverWait wait20, JavascriptExecutor js, Actions actions, int numberInterests, int numberClubs, int numberBCK) {
 		
 		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		
@@ -223,7 +225,7 @@ public class AutomationMethods {
 		
 		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div/div[2]/form/div/div[4]/div[6]/button")).click();
 		
-		wait10.until(ExpectedConditions.elementToBeClickable(By.className("buttonOk")));
+		wait20.until(ExpectedConditions.elementToBeClickable(By.className("buttonOk")));
 		
 		driver.findElement(By.className("buttonOk")).click();
 		
@@ -378,14 +380,75 @@ public class AutomationMethods {
 		wait10.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"pageFour\"]/div/button[1]")));
 		
 		driver.findElement(By.xpath("//*[@id=\"pageFour\"]/div/div[2]/div/form/div[2]/textarea")).sendKeys("Automated account description.");
-		driver.findElement(By.xpath("//*[@id=\"pageFour\"]/div/button[1]")).click();
 		
-		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 10000);");
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
+		
+		driver.findElement(By.xpath("//*[@id=\"pageFour\"]/div/button[1]")).click();		
 		
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		seconds = (int)Math.round(timePassed - currentTime);
 		System.out.println("On-boarding completed in " + seconds + " seconds.\n");
 		
+	}
+	
+	public void allTutorials(WebDriver driver, JavascriptExecutor js, WebDriverWait wait20) {
+		
+		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());		
+
+		wait20.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"tooltip\"]/div/button")));
+		
+		driver.findElement(By.xpath("//*[@id=\"tooltip\"]/div/button")).click();
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
+		
+		driver.findElement(By.xpath("//*[@id=\"tooltip\"]/div/button")).click();
+				
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
+		
+		driver.findElement(By.xpath("//*[@id=\"tooltip\"]/div/button")).click();
+			
+		driver.findElement(By.id("navbar-shop")).click();
+		
+		wait20.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"overlay\"]/div/button[1]")));
+		
+		driver.findElement(By.xpath("//*[@id=\"overlay\"]/div/button[1]")).click();
+		
+		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		seconds = (int)Math.round(timePassed - currentTime);
+		System.out.println("All tutorials completed in " + seconds + " seconds.\n");
+		
+		
+	}
+	
+	public void deleteAccountQuit(WebDriver driver, WebDriverWait wait10, JavascriptExecutor js) {
+		
+		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
+		
+		wait10.until(ExpectedConditions.elementToBeClickable(By.id("navbar-profile-dropdown")));
+		
+		driver.findElement(By.id("navbar-profile-dropdown")).click();
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
+		
+		driver.findElement(By.xpath("//*[@id=\"x2NavUserText\"]/ul/li[4]/a")).click();
+		
+		wait10.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"view-container\"]/div/div[1]/div/div/div[2]")));
+		
+		driver.findElement(By.xpath("//*[@id=\"view-container\"]/div/div[1]/div/div/div[2]")).click();
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 1000);");
+		
+		driver.findElement(By.xpath("//*[@id=\"view-container\"]/div/div[2]/div[3]/div/div[2]/div[9]/button")).click();
+		
+		wait10.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div[2]/div/button[2]")));
+		
+		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div[2]/div/button[2]")).click();
+		
+		driver.close();
+		
+		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		seconds = (int)Math.round(timePassed - currentTime);
+		System.out.println("Delet account completed in " + seconds + " seconds.\n");
 	}
 	
 	
