@@ -1,12 +1,16 @@
 package AutomationPackage;
 
+
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-
 import javax.swing.JOptionPane;
 
 public class AutomationMain {
 	
+	static String landingPage;
+	static Boolean giveaway;
+	static Boolean branch;
+	static Boolean advanced;
 	static String stringInput;
 	static String automationTime;
 	static String chosenAutomation;
@@ -40,11 +44,13 @@ public class AutomationMain {
 		ShareCollectionToClubDelete sctcd = new ShareCollectionToClubDelete();
 		EnterCampaign ec = new EnterCampaign();
 		SignUpNewUser sunu = new SignUpNewUser();
+		CreateCampaign cc = new CreateCampaign();
 		
 		System.out.println("Choose the corresponding number for the automation you would like to run.  Then press ENTER.\n" 
 						 + "1 : SHARE COLLECTION TO CLUB\n"
 						 + "2 : ENTER CAMPAIGN\n"
-						 + "3 : NEW USER SIGN UP\n");
+						 + "3 : NEW USER SIGN UP\n"
+						 + "4 : CREATE CAMPAIGN");
 		
 			stringInput = input.nextLine();
 			
@@ -169,6 +175,45 @@ public class AutomationMain {
 					
 					System.out.println("Starting Automation.\n");
 					sunu.startAutomation(numberInterests, numberClubs, numberBCK);
+					iterations--;
+					
+				}		
+				
+				showTime();
+				breakLoop = false;
+				
+			}else if(stringInput.equals("4")) {
+				
+
+				chosenAutomation = "CREATE CAMPAIGN";
+				
+				CreateCampaignGUI gui = new CreateCampaignGUI();
+				
+				landingPage = null;
+					
+				while(landingPage == null) {
+					
+					landingPage = gui.getLandingPage();
+					giveaway = gui.getGiveaway();
+					branch = gui.getBranch();
+					advanced = gui.getAdvanced();
+					
+					try {
+						Thread.sleep(300);
+					} catch (InterruptedException e) {						
+						e.printStackTrace();
+					}
+								
+				}				
+				
+				SetIterations();
+				
+				startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());					
+				
+				while(iterations != 0) {
+					
+					System.out.println("Starting Automation.\n");
+					cc.startAutomation(landingPage, giveaway, branch, advanced);
 					iterations--;
 					
 				}		

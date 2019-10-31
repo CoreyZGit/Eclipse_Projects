@@ -1,11 +1,11 @@
 package AutomationPackage;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -187,24 +187,43 @@ public class AutomationMethods {
 		
 	}
 		
-	public void campaignAlreadyAuth(WebDriver driver, WebDriverWait wait10) {
+	public void campaignAlreadyAuth(WebDriver driver, WebDriverWait wait10, JavascriptExecutor js) {
 		
 		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		
 		wait10.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/button[2]")));
 		
-		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/button[2]")).click();				
-
-		String joinClub = "//*[text() = 'foobar']";
+		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/button[2]")).click();	
 		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
 		
+		driver.findElement(By.xpath("//*[@id=\"tooltip\"]/span")).click();
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 1000);");
+	
+		Boolean tof = driver.findElements(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/button")).size() > 0;
+		
+		if(tof) {
+			
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/button")).click();	
+			
+		}else {
+			
+			driver.findElement(By.xpath("//*[@id=\"club2Top\"]/div[2]/button")).click();	
+			
+			js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
+			
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/button")).click();
+			
+		}
+									
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		seconds = (int)Math.round(timePassed - currentTime);
 		System.out.println(seconds);
 		
 	}
 	
-	public void signUpOnboard(WebDriver driver, WebDriverWait wait10, WebDriverWait wait20, JavascriptExecutor js, Actions actions, int numberInterests, int numberClubs, int numberBCK) {
+	public void signUpOnboard(WebDriver driver, WebDriverWait wait10, WebDriverWait wait20, JavascriptExecutor js, int numberInterests, int numberClubs, int numberBCK) {
 		
 		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		
@@ -352,8 +371,7 @@ public class AutomationMethods {
 			
 			break;
 			
-		}
-		
+		}		
 	
 	}else {
 		
@@ -406,7 +424,25 @@ public class AutomationMethods {
 		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
 		
 		driver.findElement(By.xpath("//*[@id=\"tooltip\"]/div/button")).click();
-			
+					
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
+		
+		driver.findElement(By.xpath("//*[@id=\"club-hub\"]/div/div[2]/div[1]/h4")).click();
+		
+		wait20.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"tooltip\"]/div/button")));
+		
+		driver.findElement(By.xpath("//*[@id=\"tooltip\"]/div/button")).click();
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
+		
+		driver.findElement(By.xpath("//*[@id=\"tooltip\"]/div/button")).click();
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
+		
+		driver.findElement(By.xpath("//*[@id=\"tooltip\"]/div/button")).click();
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
+		
 		driver.findElement(By.id("navbar-shop")).click();
 		
 		wait20.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"overlay\"]/div/button[1]")));
@@ -448,9 +484,277 @@ public class AutomationMethods {
 		
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		seconds = (int)Math.round(timePassed - currentTime);
-		System.out.println("Delet account completed in " + seconds + " seconds.\n");
+		System.out.println("Delete account completed in " + seconds + " seconds.\n");
 	}
 	
+	public void addItem(WebDriver driver, WebDriverWait wait10, JavascriptExecutor js, Integer numberImages, Integer itemType, Integer numberClubs, Boolean newCollection, Boolean advancedInfo) {
+		
+		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		
+		wait10.until(ExpectedConditions.visibilityOfElementLocated(By.id("x2NavAdd")));
+		
+		driver.findElement(By.id("x2NavAdd")).click();
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 500);");
+		
+		driver.findElement(By.xpath("//*[text()='New Item']")).click();		
+		
+		WebElement uploadImages = driver.findElement(By.xpath("//*[@id=\"sortableContainer\"]/div/div/input"));
+		
+		while(numberImages > 0) {
+			
+			System.out.println("Uploading image");
+			uploadImages.sendKeys("C:\\Users\\ZUser\\Desktop\\Penguins.jpg");		
+			numberImages--;
+		
+		}
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 1500);");
+		
+		driver.findElement(By.className("input200")).sendKeys("Automated Test Item ;)");
+		driver.findElement(By.className("textarea200")).sendKeys("Automated Text Description!");
+							
+		if(itemType == 1) {
+			
+			wait10.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/form/div[5]/button")));
+			
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/form/div[5]/button")).click();
+			
+			js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 500);");		
+			
+		}else if(itemType == 2) {
+			
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/form/div[2]/div/div[3]/button")).click();
+			
+			wait10.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/form/div[5]/button")));
+			
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/form/div[5]/button")).click();
+						
+			js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 500);");
+			
+		}else if(itemType == 3) {
+			
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/form/div[2]/div/div[1]/button")).click();
+			wait10.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/form/div[5]/div/div[1]/div[1]")));
+			
+			for(int i = 1; i < 5; i++) {
+			
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/form/div[5]/div/div[" + String.valueOf(i) + "]/div[1]")).click();			
+			js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 500);");
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/form/div[5]/div/div[" + String.valueOf(i) + "]/div[2]/input")).sendKeys("1");				
+			
+			}
+			
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/form/div[5]/div/div[4]/div[2]/span")).click();
+			
+			wait10.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/form/div[6]/button")));
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/form/div[6]/button")).click();
+			
+			js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 500);");
+			
+		}										
+		
+		if(newCollection){
+		
+			js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 500);");
+			
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div[2]/div/div[1]/div[1]/span")).click();		
+			
+			js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 500);");
+			
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/form/div/div[1]/input")).sendKeys("AutomatedTestCollection");
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/form/div/div[2]/textarea")).sendKeys("AutomatedDescription!!!!!");
+			
+			wait10.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/form/div/div[5]/button")));
+					
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/form/div/div[5]/button")).click();
+			
+		
+		}else if(!newCollection) {
+			
+			js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 500);");
+			
+			Select addToCollection = new Select(driver.findElement(By.className("wizDropdown")));
+			addToCollection.selectByIndex(1);
+						
+		}		
+				
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 1000);");
+		
+		while(numberClubs > 0) {
+								
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div[2]/div/div[1]/div[2]/div[3]/div[" + String.valueOf(numberClubs) + "]/label/div[1]")).click();			
+						
+			numberClubs--;
+		}
+		
+		if(advancedInfo) {
+			
+			js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 500);");
+			
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div[2]/div/div[1]/div[4]/span")).click();
+			
+			Select chooseAnInfoCard = new Select(driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div[2]/div/div[1]/div[3]/div[1]/select")));
+			chooseAnInfoCard.selectByVisibleText("action-figure");
+			
+			driver.findElement(By.id("55ad415f28a89f0723967473")).sendKeys("Test");		
+			driver.findElement(By.id("55ad415f28a89f0723967474")).sendKeys("Test");
+			driver.findElement(By.id("55ad415f28a89f0723967477")).sendKeys("Test");
+			driver.findElement(By.id("55ad415f28a89f0723967481")).sendKeys("Test");
+			driver.findElement(By.id("55ad415f28a89f0723967489")).sendKeys("10/01/2019");
+			driver.findElement(By.id("55ad415f28a89f072396748e")).sendKeys("Test");
+			
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div[2]/div/div[1]/div[3]/div[2]/input")).sendKeys("https://www.youtube.com/watch?v=pukRYvqqiNw");
+			
+			for(int i = 0; i < 3; i++) {
+			
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div[2]/div/div[1]/div[3]/div[3]/div[1]/input")).sendKeys("Test Tag " + String.valueOf(i));
+			driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div[2]/div/div[1]/div[3]/div[3]/div[1]/button")).click();
+			
+			}
+		}
+		
+		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div[2]/div/div[2]/button[2]")).click();
+		
+		wait10.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div/div[2]/button[2]")));
+		
+		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div/div[2]/button[2]")).click();
+
+		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		seconds = (int)Math.round(timePassed - currentTime);
+		System.out.println("Delete account completed in " + seconds + " seconds.\n");
+		
+		
+	}
+	
+	public void verifyEmail(WebDriver driver, WebDriverWait wait10, JavascriptExecutor js) {	
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 1000);");
+		
+		driver.navigate().to("https://accounts.google.com/signin/v2/identifier?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&service=mail&sacu=1&rip=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin");
+			
+		wait10.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#identifierId")));
+		
+		driver.findElement(By.cssSelector("#identifierId")).sendKeys("corey@gemr.com");
+		driver.findElement(By.xpath("//*[@id=\"identifierNext\"]/span/span")).click();
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 1000);");
+		
+		driver.findElement(By.xpath("//*[@id=\"password\"]/div[1]/div/div[1]/input")).sendKeys("Wormtown#722");
+		driver.findElement(By.xpath("//*[@id=\"passwordNext\"]/span/span")).click();
+		
+		wait10.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"gb\"]/div[2]/div[3]/div/div[2]/div[1]/img")));
+		
+		WebElement childVerify = driver.findElement(By.xpath("//*[text()='Gemr']"));
+		WebElement parentVerify = childVerify.findElement(By.xpath("./.."));
+		WebElement grandVerify = parentVerify.findElement(By.xpath("../.."));
+		grandVerify.click();
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
+		
+		driver.findElement(By.xpath("//*[text()='Verify Now']")).click();		
+		
+		ArrayList<String> windowTabs = new ArrayList<String> (driver.getWindowHandles());
+		driver.switchTo().window(windowTabs.get(1));
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 5000);");
+		
+		wait10.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"tooltip\"]/div/button")));
+
+	}
+	
+	public void generateCampaign(WebDriver driver, WebDriverWait wait10, JavascriptExecutor js, String landingURL, boolean giveaway) {
+		
+		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		
+		wait10.until(ExpectedConditions.visibilityOfElementLocated(By.className("avatar65")));
+		
+		driver.findElement(By.className("avatar65")).click();
+		
+		wait10.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"x2ProfileBody\"]/div/div[1]/button[3]")));
+		
+		driver.findElement(By.xpath("//*[@id=\"x2ProfileBody\"]/div/div[1]/button[3]")).click();
+		
+		wait10.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"app\"]/form/div[1]/input")));
+		
+		driver.findElement(By.xpath("//*[@id=\"app\"]/form/div[1]/input")).sendKeys("coreyzdude");		
+		driver.findElement(By.xpath("//*[@id=\"app\"]/form/div[2]/input")).sendKeys("Wormtown#722");
+		driver.findElement(By.xpath("//*[@id=\"app\"]/form/button")).click();
+		
+		wait10.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"app\"]/div/button[1]")));
+		
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/button[1]")).click();
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 1000);");
+		
+		WebElement inputField = driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[1]/input"));
+				
+		inputField.sendKeys("s55");
+		inputField.click();
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 5000);");
+				
+		WebElement campaignInput = driver.findElement(By.className("drop-down-box"));
+		
+		String lastCampaign = campaignInput.getText();
+		
+		if(lastCampaign.startsWith("s55TestCampaign#")) {
+			
+			Integer campaignNum = Integer.valueOf(lastCampaign.substring(16));
+			campaignNum++;
+			
+			inputField.clear();
+			inputField.sendKeys("s55TestCampaign#" + campaignNum);
+			
+		}else {
+					
+			inputField.sendKeys("s55TestCampaign#1");
+	
+		}
+				
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[2]/input")).sendKeys("source");		
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[3]/input")).sendKeys("medium");
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[4]/input")).sendKeys(landingURL);
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[5]/button")).click();
+				
+		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		seconds = (int)Math.round(timePassed - currentTime);
+		System.out.println("Campaign creation completed in " + seconds + " seconds.\n");
+		
+		WebElement uploadImages = driver.findElement(By.className("file-input"));
+		System.out.println("Uploading image");
+		
+		uploadImages.sendKeys("C:\\Users\\ZUser\\Desktop\\Penguins.jpg");	
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 5000);");
+		
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[5]/div/div/div[2]/input")).sendKeys("Campaign Modal");
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[5]/div/div/div[3]/textarea")).sendKeys("Automated Message");	
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[5]/button")).click();
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[6]/button")).click();
+		
+		if(giveaway) {
+			
+						
+			
+		}else {
+			
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[6]/div/div/div[1]/div[2]/div[1]/button")).click();				
+			
+		}
+		
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[6]/button")).click();
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[7]/button")).click();
+		
+		landingURL = landingURL.replaceAll("https://stage.qa.gemr.com/club/", "");		
+		landingURL = landingURL.substring(17, landingURL.length() - 1);		
+		landingURL = landingURL.replace("-"," ");		
+		
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[7]/div/div[2]/div/input")).sendKeys(landingURL);
+		
+		
+		
+	}
 	
 	
 }

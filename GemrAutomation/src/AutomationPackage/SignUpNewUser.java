@@ -4,7 +4,6 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SignUpNewUser {
@@ -21,7 +20,6 @@ public class SignUpNewUser {
 	WebDriverWait wait10 = new WebDriverWait(driver, 10);
 	WebDriverWait wait20 = new WebDriverWait(driver, 20);
 	JavascriptExecutor js = (JavascriptExecutor) driver;
-	Actions actions = new Actions(driver);
 	driver.manage().timeouts().setScriptTimeout(20, TimeUnit.SECONDS);
 	AutomationMethods methods = new AutomationMethods();
 	
@@ -31,7 +29,8 @@ public class SignUpNewUser {
 	driver.get("https://stage.qa.gemr.com");
 	driver.manage().window().maximize();
 	
-	methods.signUpOnboard(driver, wait10, wait20, js, actions, numberInterests, numberClubs, numberBCK);
+	methods.signUpOnboard(driver, wait10, wait20, js, numberInterests, numberClubs, numberBCK);
+	methods.verifyEmail(driver, wait10, js);
 	methods.allTutorials(driver, js, wait20);
 	methods.deleteAccountQuit(driver, wait10, js);
 	
