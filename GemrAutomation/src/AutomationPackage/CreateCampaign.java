@@ -26,7 +26,7 @@ public class CreateCampaign {
 		startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
 							
 		methods.LogIn(driver);
-		methods.generateCampaign(driver, wait10, js, landingPage, giveaway);
+		methods.generateCampaign(driver, wait10, js, landingPage, giveaway, branch, advanced);
 		
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
 		seconds = (int)Math.round(timePassed - startTime);

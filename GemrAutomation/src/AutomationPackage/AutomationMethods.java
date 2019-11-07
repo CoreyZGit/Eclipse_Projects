@@ -1,6 +1,8 @@
 package AutomationPackage;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -663,7 +665,7 @@ public class AutomationMethods {
 
 	}
 	
-	public void generateCampaign(WebDriver driver, WebDriverWait wait10, JavascriptExecutor js, String landingURL, boolean giveaway) {
+	public void generateCampaign(WebDriver driver, WebDriverWait wait10, JavascriptExecutor js, String landingURL, boolean giveaway, boolean branch, boolean advanced) {
 		
 		currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		
@@ -716,11 +718,7 @@ public class AutomationMethods {
 		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[3]/input")).sendKeys("medium");
 		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[4]/input")).sendKeys(landingURL);
 		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[5]/button")).click();
-				
-		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		seconds = (int)Math.round(timePassed - currentTime);
-		System.out.println("Campaign creation completed in " + seconds + " seconds.\n");
-		
+						
 		WebElement uploadImages = driver.findElement(By.className("file-input"));
 		System.out.println("Uploading image");
 		
@@ -735,7 +733,43 @@ public class AutomationMethods {
 		
 		if(giveaway) {
 			
-						
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[6]/div/div/div/div[1]/div/input")).sendKeys("AutomatedGiveaway#");
+			
+			WebElement lastGiveaway = driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[6]/div/div/div[1]/div[2]/div[1]/button"));
+			String giveawayText = lastGiveaway.getText();
+			Integer giveawayNum = Integer.valueOf(giveawayText.substring(18));
+			giveawayNum++;			
+			
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[6]/div/div/button")).click();
+			
+			js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
+			
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/form/div[1]/input")).sendKeys("AutomatedGiveaway#" + giveawayNum);
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/form/div[2]/div[2]/div/div[2]/button")).click();
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/form/div[3]/div[1]/button")).click();
+			
+			WebElement additionalCriteria = driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/form/button[1]"));
+			js.executeScript("arguments[0].scrollIntoView();", additionalCriteria);	
+			
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/form/div[3]/div[2]/input")).sendKeys("Minimum Criteria");
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/form/div[3]/div[3]/textarea")).sendKeys("Minimum Criteria Message");
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/form/div[3]/div[4]/input")).sendKeys(";)");
+			additionalCriteria.click();
+			
+			js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
+			
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/form/div[4]/div[1]/div[2]/div/div[4]/button")).click();
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/form/div[4]/div[2]/div[1]/button")).click();
+
+			WebElement saveButton = driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/form/button[2]"));
+			js.executeScript("arguments[0].scrollIntoView();", saveButton);	
+			
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/form/div[4]/div[2]/div[2]/input")).sendKeys("Additional Criteria");
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/form/div[4]/div[2]/div[3]/textarea")).sendKeys("Additonal Criteria Message");
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/form/div[4]/div[2]/div[4]/input")).sendKeys(";)");
+			saveButton.click();
+			
+			js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 5000);");
 			
 		}else {
 			
@@ -751,8 +785,73 @@ public class AutomationMethods {
 		landingURL = landingURL.replace("-"," ");		
 		
 		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[7]/div/div[2]/div/input")).sendKeys(landingURL);
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[7]/div/div[1]/input")).click();
+		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 1000);");
+		
+		driver.findElement(By.xpath("//*[text() = '" + landingURL + "']")).click();
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[7]/button")).click();
+		
+		WebElement saveButton = driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/button"));		
+		
+		if(branch) {
+			
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[8]/button")).click();
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[8]/div/div[1]/input")).click();
+			
+			byte[] array = new byte[7];
+			new Random().nextBytes(array);
+			String customVanity = new String(array, Charset.forName("UTF-8"));
+			customVanity = "VANITY-" + customVanity;
+			
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[8]/div/div[2]/input")).sendKeys(customVanity);
+			
+			js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 3000);");
+			
+			driver.findElement(By.className("dark-grey-button")).click();
+			
+			js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
+			
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[8]/div/div[4]/input")).sendKeys("Open Graph Title");
+			
+			js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
+			
+			driver.findElement(By.className("textarea-box")).sendKeys("Open Graph Description");
+			
+			WebElement branchOGButton = driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[8]/div/div[6]/button"));			
+			js.executeScript("arguments[0].scrollIntoView();", branchOGButton);			
+			branchOGButton.click();		
+			
+			js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 2000);");
+			
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[8]/div/div[1]/input")).click();
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[8]/button")).click();
+			
+		}
+		
+		if(advanced) {
+			
+			js.executeScript("arguments[0].scrollIntoView();", saveButton);	
+			
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[9]/button")).click();
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[9]/div/div[1]/div/input")).sendKeys("00/00/0000");
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[9]/div/div[2]/div/input")).sendKeys("00/00/0000");
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[9]/div/div[3]/input")).click();
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[9]/div/div[4]/textarea")).sendKeys("Automated Modal Message");
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[9]/div/div[5]/input")).sendKeys("10");
+			driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/div/div[2]/div/form/div[9]/button")).click();
+			
+		}
 		
 		
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 1000);");
+		saveButton.click();
+		js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], 5000);");
+		driver.close();
+
+		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		seconds = (int)Math.round(timePassed - currentTime);
+		System.out.println("Campaign creation completed in " + seconds + " seconds.\n");
 		
 	}
 	
