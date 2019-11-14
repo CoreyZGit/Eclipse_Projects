@@ -45,12 +45,14 @@ public class AutomationMain {
 		EnterCampaign ec = new EnterCampaign();
 		SignUpNewUser sunu = new SignUpNewUser();
 		CreateCampaign cc = new CreateCampaign();
+		AddItemDelete aid = new AddItemDelete();
 		
 		System.out.println("Choose the corresponding number for the automation you would like to run.  Then press ENTER.\n" 
 						 + "1 : SHARE COLLECTION TO CLUB\n"
 						 + "2 : ENTER CAMPAIGN\n"
 						 + "3 : NEW USER SIGN UP\n"
-						 + "4 : CREATE CAMPAIGN");
+						 + "4 : CREATE CAMPAIGN\n"
+						 + "5 : ADD ITEM");
 		
 			stringInput = input.nextLine();
 			
@@ -65,9 +67,10 @@ public class AutomationMain {
 				
 				startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());			
 				
+				System.out.println("Starting Automation.\n");
+				
 				while(iterations != 0) {
-					
-					System.out.println("Starting Automation.\n");
+									
 					sctcd.startAutomation();
 					iterations--;
 					
@@ -84,11 +87,12 @@ public class AutomationMain {
 				campaignLink = JOptionPane.showInputDialog("Please input a valid campaign link (Branch link preferred)");
 				SetIterations();
 				
-				startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());					
+				startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
+				
+				System.out.println("Starting Automation.\n");
 				
 				while(iterations != 0) {
 					
-					System.out.println("Starting Automation.\n");
 					ec.startAutomation(campaignLink);
 					iterations--;
 					
@@ -169,11 +173,12 @@ public class AutomationMain {
 				
 				SetIterations();
 				
-				startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());					
+				startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
+				
+				System.out.println("Starting Automation.\n");
 				
 				while(iterations != 0) {
 					
-					System.out.println("Starting Automation.\n");
 					sunu.startAutomation(numberInterests, numberClubs, numberBCK);
 					iterations--;
 					
@@ -208,11 +213,12 @@ public class AutomationMain {
 				
 				SetIterations();
 				
-				startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());					
+				startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());		
+				
+				System.out.println("Starting Automation.\n");
 				
 				while(iterations != 0) {
 					
-					System.out.println("Starting Automation.\n");
 					cc.startAutomation(landingPage, giveaway, branch, advanced);
 					iterations--;
 					
@@ -220,6 +226,31 @@ public class AutomationMain {
 				
 				showTime();
 				breakLoop = false;
+				
+			}
+			
+			else if(stringInput.equals("5")) {
+				
+				chosenAutomation = "ADD ITEM";
+				
+				AddItemDeleteGUI gui = new AddItemDeleteGUI();
+				
+				SetIterations();
+				
+				startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());			
+				
+				System.out.println("Starting Automation.\n");
+				
+				while(iterations != 0) {
+									
+					aid.startAutomation();
+					iterations--;
+					
+				}
+				
+				showTime();
+				breakLoop = false;
+				
 				
 			}else {
 				
@@ -240,13 +271,21 @@ public class AutomationMain {
 		if(timeInt > 60) {
 			
 			minutes = timeInt / 60;
-            seconds = timeInt % 60;	
-			
-            automationTime = String.format("Full automation completed in %d:%d.\n", minutes, seconds);	
-			
+            seconds = timeInt % 60;		
+            
+            if(seconds <= 9){
+            	
+            	automationTime = String.format("FULL AUTOMATION COMPLETED IN %d:0%d.\n", minutes, seconds);	
+            	
+            }else {
+            	
+            	automationTime = String.format("FULL AUTOMATION COMPLETED IN %d:%d.\n", minutes, seconds);	
+            
+            }
+            
 		}else {
 			
-			automationTime = String.format("Full automation completed in " + timeInt + " seconds.\n");
+			automationTime = String.format("FULL AUTOMATION COMPLETED IN " + timeInt + " SECONDS.\n");
 			
 		}		
 

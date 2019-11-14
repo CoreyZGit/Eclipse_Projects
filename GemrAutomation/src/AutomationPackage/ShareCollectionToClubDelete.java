@@ -13,7 +13,6 @@ public class ShareCollectionToClubDelete {
 		long timePassed;
 		long startTime;
 		int seconds;
-		int minutes;
 		
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\ZUser\\Desktop\\Java\\chromedriver_win32\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();	
@@ -38,18 +37,7 @@ public class ShareCollectionToClubDelete {
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
 		seconds = (int)Math.round(timePassed - startTime);
 		
-		if(seconds > 60) {
-			
-			minutes = seconds / 60;
-			seconds = seconds % 60;
-			
-			System.out.printf("Iteration completed in %d:%d.\n", minutes, seconds);
-			
-		}else {
-		
-			System.out.println("Iteration completed in " + seconds + " seconds.\n");
-		
-		}	
+		methods.totalTime(seconds);
 		
 }
 				

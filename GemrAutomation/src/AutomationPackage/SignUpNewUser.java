@@ -13,7 +13,6 @@ public class SignUpNewUser {
 	long timePassed;
 	long startTime;
 	int seconds;
-	int minutes;
 	
 	System.setProperty("webdriver.chrome.driver", "C:\\Users\\ZUser\\Desktop\\Java\\chromedriver_win32\\chromedriver.exe");
 	WebDriver driver = new ChromeDriver();	
@@ -26,7 +25,7 @@ public class SignUpNewUser {
 	System.out.println("Starting Iteration.\n");
 	startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 	
-	driver.get("https://stage.qa.gemr.com");
+	driver.get("https://gemr.com");
 	driver.manage().window().maximize();
 	
 	methods.signUpOnboard(driver, wait10, wait20, js, numberInterests, numberClubs, numberBCK);
@@ -37,18 +36,7 @@ public class SignUpNewUser {
 	timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());	
 	seconds = (int)Math.round(timePassed - startTime);
 	
-	if(seconds > 60) {
-		
-		minutes = seconds / 60;
-		seconds = seconds % 60;
-		
-		System.out.printf("Iteration completed in %d:%d.\n", minutes, seconds);
-		
-	}else {
-	
-		System.out.println("Iteration completed in " + seconds + " seconds.\n");
-	
-	}	
+	methods.totalTime(seconds);	
 	
 	}
 }
