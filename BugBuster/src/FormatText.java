@@ -1,15 +1,13 @@
 
 
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.awt.event.ActionEvent;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
 public class FormatText extends JFrame {
     
    
@@ -18,7 +16,6 @@ public class FormatText extends JFrame {
     private JButton exitReport;
     private JTextArea textArea; 
     private String bugReportString;
-    private String tagsString;
   
     public FormatText(String[] bugReport){
     	
@@ -35,7 +32,7 @@ public class FormatText extends JFrame {
         Instruction = new JLabel("Copy and paste this report into yout bug ticket.  Make edits if necessary.");
         Instruction.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        textArea = new JTextArea();
+        textArea = new JTextArea("Formatted bug ticket will appear here.");
         textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
@@ -52,7 +49,7 @@ public class FormatText extends JFrame {
         JCheckBox saveReport = new JCheckBox("Save Report");
         saveReport.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        JTextField tags = new JTextField(24);
+        JTextField tags = new JTextField("Tags appear here.", 24);
                    
         panel.add(Instruction);
         panel.add(generate);
@@ -83,7 +80,7 @@ public class FormatText extends JFrame {
 	    			public void actionPerformed(ActionEvent event) {
 	    				
 	    			bugReportString = String.format("%s\n%s\n%s\n\n%s\n\n%s\n\n", bugReport[0], bugReport[1], bugReport[2], bugReport[4], bugReport[5]);	    				    			
-	    			textArea.setText(bugReportString);	    			
+	    			textArea.setText(bugReportString);	    			    			
 	    			tags.setText(bugReport[3]);
 	    			
 	    		    }    		 		
@@ -116,15 +113,7 @@ public class FormatText extends JFrame {
 	    	
  );
 }   
-    
-    
-    private String removeLastChar(String str) {
-        return str.substring(0, str.length() - 1);
-    }
-    
-    
-    
-    
+              
 }
     
     

@@ -1,10 +1,7 @@
-	import java.awt.event.ActionListener;
-	import java.awt.event.ActionEvent;
-	import java.awt.*;
-	import javax.swing.*;
-	import javax.swing.JFrame;
+import javax.swing.JFrame;
 
 	
+@SuppressWarnings("serial")
 public class BugBusterMain extends JFrame{
 	
 	public static String sprint; 
@@ -99,6 +96,7 @@ public class BugBusterMain extends JFrame{
 		System.out.println(specific);
 		System.out.println(other);		
 		
+		@SuppressWarnings("unused")
 		FormatText promptFormat = new FormatText(finalReport);
 					
 

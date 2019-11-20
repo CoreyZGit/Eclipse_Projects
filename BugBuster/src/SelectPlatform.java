@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class SelectPlatform extends JFrame {
 
     private JFrame window;
@@ -20,7 +21,7 @@ public class SelectPlatform extends JFrame {
 	public SelectPlatform(){				
 		
 		window = new JFrame("Select Platform");  
-		window.setSize(600, 500);
+		window.setSize(600, 425);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setLocationRelativeTo(null);
 		window.setResizable(false);	   

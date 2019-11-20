@@ -1,7 +1,5 @@
 import java.awt.FlowLayout;
-import java.awt.color.*;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -13,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+@SuppressWarnings("serial")
 public class AddDescription extends JFrame {
 	
 	private String description;
@@ -20,7 +19,6 @@ public class AddDescription extends JFrame {
     private JLabel giveSteps;
     private JLabel giveExpected;
     private JLabel giveActual;
-    private JLabel continueLabel;
     private JTextArea descriptionArea;
     private JTextArea stepsArea;  
     private JTextArea expectedArea;
@@ -32,7 +30,7 @@ public class AddDescription extends JFrame {
 		JFrame window = new JFrame();
 		
 		window.setTitle("Valid Steps");   
-	    window.setSize(600, 500); 	
+	    window.setSize(600, 425); 	
 	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    window.setLocationRelativeTo(null);
 	    window.setResizable(false);

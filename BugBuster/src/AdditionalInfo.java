@@ -2,10 +2,8 @@ import java.awt.Color;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -14,12 +12,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class AdditionalInfo extends JFrame {
 	
 	JFrame window = new JFrame();
 	private String customTag;
 	private int tagNumber;
-	private int listIndex;
 	private String tagString;
 	private String browser;
 	private String device;
@@ -28,7 +26,6 @@ public class AdditionalInfo extends JFrame {
 	private String safariText;
 	private String firefoxText;
 	private String deviceText;
-	private String extraText;
 	private String other;
 	private int toMain;
 	
@@ -36,7 +33,7 @@ public class AdditionalInfo extends JFrame {
 		
 		JFrame window = new JFrame();	
 		window.setTitle("Additional Info and Tags");   
-	    window.setSize(600, 400); 	
+	    window.setSize(600, 415); 	
 	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    window.setLocationRelativeTo(null);
 	    window.setResizable(false);
@@ -92,7 +89,7 @@ public class AdditionalInfo extends JFrame {
 	    JCheckBox chrome = new JCheckBox("Safari");
 	    JCheckBox firefox = new JCheckBox("Firefox       ");	    
 	    
-	    JTextArea devices = new JTextArea("     Enter devices here", 8, 13);
+	    JTextArea devices = new JTextArea("     Enter devices here", 9, 13);
 	    devices.setFont(new Font("Serif", Font.BOLD, 14));
 	    devices.setCaretColor(Color.WHITE);
 	    devices.setLineWrap(true);

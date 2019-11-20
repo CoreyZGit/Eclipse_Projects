@@ -81,7 +81,7 @@ public static void takeTest(Question [] questions) {
 			System.out.println("I award you no points and may god have mercy on your soul!");
 			break;
 		case 1:
-			System.out.println("You're pretty dumb.");
+			System.out.println("Pretty bad if I must say.");
 			break;
 		case 2:
 			System.out.println("About half a brain.");

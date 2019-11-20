@@ -1,5 +1,4 @@
-import java.awt.*;
-import java.awt.event.*;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -11,62 +10,61 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.*;
 
+@SuppressWarnings("serial")
 public class BasicInfo extends JFrame {
 	
-	private JPanel panel;
-	private JFrame window;
 	private static String verSprint;
 	private String date;
 	private String dateSprint;
 
 	public BasicInfo() {
 				
+		JFrame window = new JFrame();
 		ColorClass colorObj = new ColorClass(); 
-	    super.setSize(600, 500);
-	    super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    super.setLocationRelativeTo(null);
-	    super.setResizable(false);	
+		window.setSize(600, 300);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setLocationRelativeTo(null);
+		window.setResizable(false);	
 	    JPanel panel = new JPanel();
 	    panel.setBounds(565, 5, 35, 30);
+	    panel.setLayout(null);
 
 	    JButton continueButton = new JButton("Continue");
 	    continueButton.setBounds(247, 200, 100, 30);    
-	    super.add(continueButton);
+	    panel.add(continueButton);
 	    
 	    JLabel title = new JLabel("Bug Buster v2.0");
 	    title.setFont(new Font("Serif", Font.BOLD, 18));	    
 	    title.setBounds(10, 5, 150, 30); 
 	    title.setToolTipText("This program has been designed to help detail and format bug tickets.  It is intended to be used with pivotal tracker!");
-	    super.add(title);
+	    panel.add(title);
 		
 	    JLabel progBy = new JLabel("; )");
 	    progBy.setFont(new Font("Serif", Font.BOLD, 22));	    
 	    progBy.setToolTipText("Programmed By: Corey Zwart");
+	    progBy.setBounds(565, 3, 30, 30);
 	    panel.add(progBy);
 	    
 	    JLabel introText = new JLabel("Enter the date and sprint/version number below.");
 	    introText.setFont(new Font("Serif", Font.PLAIN, 18));
 	    introText.setBounds(125, 50, 600, 20);
-	    super.add(introText);	    	 
+	    panel.add(introText);	    	 
 	    
 	    JTextField dateArea = new JTextField("     Enter Date");
 	    dateArea.setFont(new Font("Serif", Font.BOLD, 14));
 	    dateArea.setCaretColor(Color.WHITE);
 	    dateArea.setBounds(240, 100, 115, 20);
-	    super.add(dateArea);
+	    panel.add(dateArea);
 	    
 	    JTextField verArea = new JTextField(" Enter Ver/Sprint");
 	    verArea.setFont(new Font("Serif", Font.BOLD, 14));
 	    verArea.setCaretColor(Color.WHITE);
 	    verArea.setBounds(240, 135, 115, 20);
-	    super.add(verArea);
+	    panel.add(verArea);
 	   
-	    PaintClass paintRect = new PaintClass();
-	    super.add(paintRect);
-	    super.add(panel);
-	    super.setVisible(true);	
+	    window.add(panel);
+	    window.setVisible(true);	
 	    
 	    dateArea.addMouseListener(new MouseAdapter()
 	    {
@@ -108,9 +106,7 @@ public class BasicInfo extends JFrame {
 	 	                   					+ "***Version/Sprint:*** " + "%s" + "\n", date, verSprint); 	 
 	    		
 	    			window.setVisible(false);
-	    		}  
-	    			
-	    			
+	    		}  	    					
 	    	}
 	    		
 	);
@@ -123,7 +119,7 @@ public class BasicInfo extends JFrame {
 	        {
 	        		        		
 	        		colorObj.ChooseColor();  		
-	        		super.setBackground(new java.awt.Color(ColorClass.getRvalue(), ColorClass.getGvalue(), ColorClass.getBvalue())); 	     	       
+	        		panel.setBackground(new java.awt.Color(ColorClass.getRvalue(), ColorClass.getGvalue(), ColorClass.getBvalue())); 	     	       
 	        	         
 	     }
 	});
