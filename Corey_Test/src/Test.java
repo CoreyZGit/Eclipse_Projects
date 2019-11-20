@@ -9,7 +9,7 @@ public class Test {
 		
 		System.out.println("Hello " + name + ", Welcome to my test.\n"
 				         + "It is comprised of ten multiple choice questions.\n"
-				         + "You may press enter when you are ready. Don't fuck up!");
+				         + "You may press enter when you are ready. Don't mess up!");
 			
 		testtaker.nextLine();
 	   	
