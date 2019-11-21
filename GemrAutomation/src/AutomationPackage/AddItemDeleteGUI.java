@@ -1,8 +1,11 @@
 package AutomationPackage;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -10,18 +13,19 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class AddItemDeleteGUI extends JFrame{
 
-	private JLabel prompt;
+
 	private JTextField numImages;
 	private JTextField numClubs;
-	private JButton forSale;
-	private JButton wanted;
-	private JButton collected;
 	private JCheckBox newCollection = new JCheckBox();
 	private JCheckBox advanced = new JCheckBox();
 	Boolean collectionBool = false;
 	Boolean advancedBool = false;
+	Integer images = 1;
+	Integer clubs = 0;
+	Integer itemInt = 0;
 	
 	public AddItemDeleteGUI() {
 		
@@ -56,11 +60,9 @@ public class AddItemDeleteGUI extends JFrame{
 				new ActionListener(){
 					public void actionPerformed(ActionEvent event) {
 						
-						Integer itemInt = 1;
-						typeOfItem(1);
-						
-						
-						
+						itemInt = 3;
+						configureItem();						
+						window.setVisible(false);								
 					}														
 				}				
 			);
@@ -69,9 +71,9 @@ public class AddItemDeleteGUI extends JFrame{
 				new ActionListener(){
 					public void actionPerformed(ActionEvent event) {
 						
-						Integer itemInt = 1;
-						typeOfItem(1);
-						
+						itemInt = 2;
+						configureItem();					
+						window.setVisible(false);
 						
 					}											
 				}
@@ -81,44 +83,117 @@ public class AddItemDeleteGUI extends JFrame{
 				new ActionListener(){
 					public void actionPerformed(ActionEvent event) {
 						
-						Integer itemInt = 1;
-						typeOfItem(1);
-						
+						itemInt = 1;	
+						configureItem();
+						window.setVisible(false);
 						
 					}											
 				}
 			);
-						
+		
+		   numImages.addMouseListener(new MouseAdapter()
+		    {
+		        public void mouseClicked(MouseEvent e)
+		        {
+		            if(numImages.getText().equals("Enter description here."))
+		            {
+		            	numImages.setText("");
+		                repaint();
+		                revalidate();
+		                numImages.setCaretColor(Color.BLACK);
+		            }           
+		        }
+		    });
+		
+		   numClubs.addMouseListener(new MouseAdapter()
+		    {
+		        public void mouseClicked(MouseEvent e)
+		        {
+		            if(numClubs.getText().equals("Enter description here."))
+		            {
+		            	numClubs.setText("");
+		                repaint();
+		                revalidate();
+		                numClubs.setCaretColor(Color.BLACK);
+		            }           
+		        }
+		    });
+	
 	}
 	
-	public void typeOfItem(Integer itemType) {
+	public void configureItem() {
 		
 		try {
-		Integer images = Integer.parseInt(numImages.getText());
-		}catch(Exception e){
+			images = Integer.parseInt(numImages.getText());
 			
-			Integer images = 1;
-		}
+			if(images > 10) {
+				
+				images = 1;
+				
+			}
+			
+			}catch(Exception e){
+				
+				images = 1;			
+				System.out.println("Exception");
+			}
+			
+			try {
+			clubs = Integer.parseInt(numClubs.getText());
+			
+			if(clubs > 5) {
+				
+				clubs = 0;				
+			}
+			
+			}catch(Exception e) {
+				
+				clubs = 0;
+			}
+			
+			if(advanced.isSelected()) {
+				
+				advancedBool = true;
+				
+			}
+			
+			if(newCollection.isSelected()) {
+				
+				collectionBool = true;
+				
+			}				
 		
-		try {
-		Integer clubs = Integer.parseInt(numClubs.getText());
-		}catch(Exception e) {
+		System.out.printf("%s%s%s%s", collectionBool, advancedBool, Integer.valueOf(images), Integer.valueOf(clubs));
 			
-			Integer clubs = 0;
-		}
+	}
+								
+	public Boolean getAdvanced() {
 		
-		if(advanced.isSelected()) {
-			
-			advancedBool = true;
-			
-		}
-		
-		if(newCollection.isSelected()) {
-			
-			collectionBool = true;
-			
-		}
+		return advancedBool;
 		
 	}
 	
+	public Boolean getCollection() {
+		
+		return collectionBool;
+		
+	}
+	
+	public int getItemType() {
+		
+		return itemInt;
+		
+	}
+	
+	public int getImages() {
+		
+		return images;
+		
+	}
+	
+	public int getClubs() {
+		
+		return clubs;
+		
+	}
 }

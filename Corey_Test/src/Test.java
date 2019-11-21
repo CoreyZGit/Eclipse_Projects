@@ -81,7 +81,7 @@ public static void takeTest(Question [] questions) {
 			System.out.println("I award you no points and may god have mercy on your soul!");
 			break;
 		case 1:
-			System.out.println("Pretty bad if I must say.");
+			System.out.println("Pre-school level.");
 			break;
 		case 2:
 			System.out.println("About half a brain.");
@@ -90,7 +90,7 @@ public static void takeTest(Question [] questions) {
 			System.out.println("Stay in school.");
 			break;
 		case 4:
-			System.out.println("Ehh, your not the brightest.");
+			System.out.println("Ehh, not the brightest.");
 			break;
 		case 5:
 			System.out.println("Slightly below average.");

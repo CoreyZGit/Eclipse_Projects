@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class CreateCampaignGUI extends JFrame{
 	
 	
@@ -17,15 +18,7 @@ public class CreateCampaignGUI extends JFrame{
 	private boolean giveawayBool = false;
 	private boolean branchBool = false;
 	private boolean advancedBool = false;
-	
-	private JLabel prompt;
-	private JButton cont;
-	private JTextField landingPage;
-	private JCheckBox giveaway;
-	private JCheckBox branch = new JCheckBox();
-	private JCheckBox advanced = new JCheckBox();
-
-	
+		
 	public CreateCampaignGUI() {
 		
 		JFrame window = new JFrame();

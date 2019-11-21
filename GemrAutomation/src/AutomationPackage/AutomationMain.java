@@ -7,6 +7,12 @@ import javax.swing.JOptionPane;
 
 public class AutomationMain {
 	
+	
+	static Integer numberImages;
+	static Integer numberClubs;
+	static Integer itemType;
+	static Boolean newCollection;
+	static Boolean advancedInfo;	
 	static String landingPage;
 	static Boolean giveaway;
 	static Boolean branch;
@@ -26,13 +32,7 @@ public class AutomationMain {
 	public static void main(String[] args) {	
 		
 		System.out.println("Gemr Automation Intitiating...\n");
-	
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-				
+					
 		chooseAutomation();
 		System.out.println(automationTime);
 		System.exit(0);	
@@ -235,6 +235,24 @@ public class AutomationMain {
 				
 				AddItemDeleteGUI gui = new AddItemDeleteGUI();
 				
+				itemType = 0;
+				
+				while(itemType == 0) {
+					
+					numberImages = gui.getImages();
+					numberClubs = gui.getClubs();
+					itemType = gui.getItemType();
+					newCollection = gui.getCollection();
+					advancedInfo = gui.getAdvanced();	
+					
+					try {
+						Thread.sleep(300);
+					} catch (InterruptedException e) {						
+						e.printStackTrace();
+					}		
+					
+				}
+				
 				SetIterations();
 				
 				startTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());			
@@ -243,7 +261,7 @@ public class AutomationMain {
 				
 				while(iterations != 0) {
 									
-					aid.startAutomation();
+					aid.startAutomation(numberImages, itemType, numberClubs, newCollection, advancedInfo);
 					iterations--;
 					
 				}

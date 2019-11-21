@@ -25,8 +25,8 @@ public class AutomationMethods {
 		driver.get("https://gemr.com");
 		driver.manage().window().maximize();		
 		driver.findElement(By.cssSelector("#landingNavBarContainer > div > div > ul > div > li.pointed.inline.landingLogIn")).click();		
-		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div[2]/form/div/div[4]/div[1]/div[2]/input")).sendKeys("coreyzdude");
-		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div[2]/form/div/div[4]/div[2]/div[2]/input")).sendKeys("Wormtown#722");
+		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div[2]/form/div/div[4]/div[1]/div[2]/input")).sendKeys("zwarthog");
+		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div[2]/form/div/div[4]/div[2]/div[2]/input")).sendKeys("123456");
 		driver.findElement(By.xpath("//*[@id=\"modals-container\"]/div/div/div[2]/div/div/div/div[2]/form/div/div[4]/div[3]/button")).click();	
 		
 		timePassed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
@@ -905,6 +905,13 @@ public class AutomationMethods {
 		
 		}
 			
+	}
+	
+	public void deleteItem() {
+		
+		
+		
+		
 	}
 	
 	
